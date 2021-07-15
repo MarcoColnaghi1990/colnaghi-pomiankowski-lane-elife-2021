@@ -43,7 +43,7 @@ for n=1:n_iterations
     S = atresiaCulling(S,k,xi);
     
     %%% Oocyte growth
-    for t=32:40
+    for t=32:44
         S = mito_replication2(S,mu);
     end
     
