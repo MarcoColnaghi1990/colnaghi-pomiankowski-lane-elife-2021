@@ -8,7 +8,7 @@ mu = mutrate *16569;                %%% mtDNA genome-wide mutation rate
 n_start=2^19;                       %%% Initial mtDNA copy number
 n_iterations = 10;                  %%% Number of iterations
 k=1;                                %%% Rate of fitness decline/mutation
-PGC_0 = 64;                         %%% Initial number of primordial germ cells
+PGC_0 = 32;                         %%% Initial number of primordial germ cells
 dM = zeros(1,n_iterations);         %%% Mutation load shift between generations
 
 %%% Simulation
@@ -25,7 +25,7 @@ for n=1:n_iterations
     for j=2:13
         t=t+1;
         S = cell_division(S);
-        if t==13
+        if t==12
             % Germline segregation
             S=datasample(S,PGC_0,2,'Replace',false);
             t=t+1;
@@ -43,8 +43,7 @@ for n=1:n_iterations
     S = atresiaCulling(S,k,xi);
     
     %%% Oocyte growth
-    cell_old=t;
-    for t=cell_old+1:cell_old+9
+    for t=32:40
         S = mito_replication2(S,mu);
     end
     
@@ -53,5 +52,3 @@ for n=1:n_iterations
     dM(n) = mean(mut_load)-mut_load_0;     %%% Mutation load shift between generations
 
 end
-
-
